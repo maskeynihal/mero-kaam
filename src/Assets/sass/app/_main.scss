@@ -6,3 +6,12 @@
   display: flex;
   align-items: center;
 }
+
+.bg-primary {
+  background-color: getColor('primary.base');
+}
+
+.bg-secondary {
+  background-color: getColor('secondary.base');
+  color: getColor('white.base');
+}
