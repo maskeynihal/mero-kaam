@@ -1,10 +1,11 @@
 import React from 'react';
-// import { Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import makeRoute from 'Utils/makeRoute';
 import Home from 'Views/pages/home';
 import About from 'Views/pages/about';
 import AboutMe from 'Views/pages/AboutMe';
-import { Switch } from 'react-router-dom';
-import makeRoute from 'Utils/makeRoute';
 import Contact from 'Views/pages/contact';
 
 const routes = [
@@ -28,7 +29,7 @@ const routes = [
       },
       {
         path: 'company/:location',
-        // children: []
+        children: [],
         component: (props) => <div>Company {props.match.params.location}</div>
       }
     ]
@@ -38,9 +39,19 @@ const routes = [
 /**
  * Make Routes.
  * Routes passed must be the most outside route or those that don't have parent.
+ *
+ * @param props
  */
-function Routes() {
-  return <Switch>{routes.map((route) => makeRoute(route))}</Switch>;
+function Routes(props) {
+  return (
+    <Switch>
+      {routes.map((route) => makeRoute(route))}
+      {props.children}
+    </Switch>
+  );
 }
 
+Routes.propTypes = {
+  children: PropTypes.oneOfType(PropTypes.arrayOf(PropTypes.node), PropTypes.node)
+};
 export default Routes;

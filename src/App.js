@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Routes from './Routes/routes';
+import DefaultLayout from 'Views/layouts/default';
 /**
  * Main App.
  */
@@ -10,17 +10,11 @@ function App() {
   return (
     <div className="main-container">
       <Router>
-        <Switch>
-          <Routes></Routes>
-        </Switch>
-
-        <NavLink to="/" activeClassName={React}>
-          Home
-        </NavLink>
-        <NavLink to="/about">About</NavLink>
-        <NavLink to="/about/me">About Me</NavLink>
-        <NavLink to="/about/me/contact">Contact</NavLink>
-        <NavLink to="/about/company">Contact</NavLink>
+        <DefaultLayout>
+          <Routes>
+            <Route path="/hello" component={() => <div>nevermind</div>} />
+          </Routes>
+        </DefaultLayout>
       </Router>
     </div>
   );
