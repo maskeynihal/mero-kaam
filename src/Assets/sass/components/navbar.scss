@@ -1,0 +1,8 @@
+.navbar {
+  padding: 24px 0;
+  @include e(container) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

@@ -1,19 +1,27 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import logo from 'logo.svg';
+import { Card, Button, TextField, Avatar, Divider } from 'ui-neumorphism';
+import { FiSearch } from 'react-icons/fi';
 /**
  * Navbar.
  */
 function Navbar() {
   return (
-    <div>
-      <NavLink to="/" activeClassName={React}>
-        Home
-      </NavLink>
-      <NavLink to="/about">About</NavLink>
-      <NavLink to="/about/me">About Me</NavLink>
-      <NavLink to="/about/me/contact">Contact</NavLink>
-      <NavLink to="/about/company">Contact</NavLink>
-    </div>
+    <React.Fragment>
+      <div className="navbar">
+        <Card className="navbar__container" flat>
+          <div className="row-group">
+            <FiSearch></FiSearch>
+            <TextField placeholder="SEARCH" hideExtra={true} name="search"></TextField>
+          </div>
+          <div className="row-group">
+            <Avatar src={logo}>NM</Avatar>
+          </div>
+        </Card>
+      </div>
+      <Divider dense></Divider>
+    </React.Fragment>
   );
 }
 

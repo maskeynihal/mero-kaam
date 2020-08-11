@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import { Card } from 'ui-neumorphism';
 import { Navbar } from 'Components/container/navbar';
+
 /**
  * Default Layout.
  *
@@ -9,8 +12,12 @@ import { Navbar } from 'Components/container/navbar';
 function DefaultLayout(props) {
   return (
     <div>
-      <Navbar></Navbar>
-      <div className="content__container">{props.children}</div>
+      <Card>
+        <div className="main-container">
+          <Navbar></Navbar>
+          <div className="content__container">{props.children}</div>
+        </div>
+      </Card>
     </div>
   );
 }
