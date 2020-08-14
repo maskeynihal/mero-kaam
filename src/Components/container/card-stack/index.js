@@ -1,3 +1,3 @@
-import cardStack from './cardStack'
+import CardStack from './cardStack';
 
-export default cardStack;
+export default CardStack;

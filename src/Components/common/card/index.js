@@ -1,3 +1,3 @@
 import Card from './card';
-
-export default Card;
+import LargeCard from './largeCard';
+export { Card, LargeCard };

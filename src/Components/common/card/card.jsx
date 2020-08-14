@@ -7,13 +7,15 @@ import { Card as NeuCard, Button, Avatar } from 'ui-neumorphism';
  * Card.
  */
 function Card({ rounded, heading, dueDate, username }) {
+  console.log(rounded);
+
   return (
     <React.Fragment>
       <NeuCard rounded={rounded}>
         <div className="card__container">
           <div className="card__heading">{heading}</div>
           <div className="card__due-date">
-            <NeuCard inset rounded className="card__date">
+            <NeuCard inset className="card__date">
               {dueDate}
             </NeuCard>
           </div>
@@ -41,7 +43,7 @@ Card.defaultProps = {
 Card.propTypes = {
   rounded: PropTypes.bool,
   heading: PropTypes.string,
-  dueDate: PropTypes.string,
+  dueDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   username: PropTypes.string
 };
 

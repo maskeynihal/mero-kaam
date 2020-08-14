@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Card from 'Components/common/card';
+import { Card } from 'Components/common/card';
 /**
  * Has stack of card of the definite works.
  *
@@ -13,10 +13,10 @@ function CardStack(props) {
       <div className="card-stack__title">{props.title.toUpperCase()}</div>
       <div className="card-group">
         <div className="card-group__item">
-          <Card rounded></Card>
+          <Card rounded={true}></Card>
         </div>
         <div className="card-group__item">
-          <Card rounded></Card>
+          <Card rounded={false}></Card>
         </div>
       </div>
     </div>

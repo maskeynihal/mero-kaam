@@ -15,3 +15,11 @@
   background-color: getColor('secondary.base');
   color: getColor('white.base');
 }
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.card {
+  padding: 12px 16px
+}
