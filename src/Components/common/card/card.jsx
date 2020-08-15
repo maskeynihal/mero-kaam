@@ -7,8 +7,6 @@ import { Card as NeuCard, Button, Avatar } from 'ui-neumorphism';
  * Card.
  */
 function Card({ rounded, heading, dueDate, username }) {
-  console.log(rounded);
-
   return (
     <React.Fragment>
       <NeuCard rounded={rounded}>

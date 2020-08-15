@@ -4,11 +4,15 @@ import { Card as NeuCard, Avatar, Button } from 'ui-neumorphism';
 import { NoteCard, NoteInput } from 'Components/common/noteCard';
 /**
  * Large Card.
+ *
+ * @param props
  */
-function LargeCard({ rounded, heading, subHeading, type, dueDate, author, typeColor, description }) {
+function LargeCard({ rounded, heading, subHeading, type, dueDate, author, typeColor, description, ...props }) {
+  console.log(props);
+
   return (
     <React.Fragment>
-      <NeuCard rounded={rounded} className="large-card">
+      <NeuCard rounded={rounded} {...props} className="large-card">
         <div className="large-card__container">
           <div className="large-card__heading">{heading}</div>
           <div className="large-card__content">
