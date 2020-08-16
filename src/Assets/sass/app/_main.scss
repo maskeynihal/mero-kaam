@@ -2,23 +2,27 @@
   padding: 0px 24px;
 }
 
+.container {
+  padding: 16px 12px;
+}
+
 .row-group {
   display: flex;
   align-items: center;
 }
 
 .bg-primary {
-  background-color: getColor('primary.base');
+  background-color: getColor("primary.base");
 }
 
 .bg-secondary {
-  background-color: getColor('secondary.base');
-  color: getColor('white.base');
+  background-color: getColor("secondary.base");
+  color: getColor("white.base");
 }
 
 .bg-success {
-  background-color: getColor('success.base');
-  color: getColor('white.base');
+  background-color: getColor("success.base");
+  color: getColor("white.base");
 }
 
 .justify-space-between {

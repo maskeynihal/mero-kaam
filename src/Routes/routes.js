@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import makeRoute from 'Utils/makeRoute';
@@ -7,6 +7,7 @@ import Home from 'Views/pages/home';
 import About from 'Views/pages/about';
 import AboutMe from 'Views/pages/AboutMe';
 import Contact from 'Views/pages/contact';
+import RegisterPage from 'Views/pages/register';
 
 const routes = [
   {
@@ -47,6 +48,7 @@ function Routes(props) {
     <Switch>
       {routes.map((route) => makeRoute(route))}
       {props.children}
+      <Route path="/register" component={RegisterPage}></Route>
     </Switch>
   );
 }
