@@ -1,3 +1,5 @@
-import ShowTaskModal from './showTaskModal';
 import Modal from './modal';
-export { ShowTaskModal, Modal };
+import ShowTaskModal from './showTaskModal';
+import InputTaskModal from './inputTaskModal';
+
+export { ShowTaskModal, Modal, InputTaskModal };

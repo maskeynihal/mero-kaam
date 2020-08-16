@@ -5,6 +5,7 @@ $black: #000000 !default;
 // Base colors
 $primary-color: #ebecf0 !default;
 $secondary-color: #1a44ee !default;
+$success-color: #47a53e !default;
 $error-color: #ef5350 !default;
 $warning-color: #ffca28 !default;
 $warning-alt-color: #ff9800 !default;
@@ -68,6 +69,11 @@ $colorMap: (
     '60': #737373,
     '70': #515151,
     '80': #333333
+  ),
+  'success': (
+    'base': $success-color,
+    'dark': darken($success-color, 30%),
+    'light': lighten($success-color, 10%)
   )
 );
 

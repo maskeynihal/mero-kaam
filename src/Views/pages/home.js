@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import PageHeading from 'Components/container/page-heading';
 import CardStack from 'Components/container/card-stack';
-import { LargeCard } from 'Components/common/card';
+import { LargeCard, InputCard } from 'Components/common/card';
 import { useModal } from 'Hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { ShowTaskModal } from 'Components/common/modal';
@@ -24,7 +24,7 @@ function Home() {
       <div className="main-content">
         <div className="main-content__container">
           <div className="large__card">
-            <LargeCard></LargeCard>
+            <InputCard></InputCard>
           </div>
           <div className="stack__group">
             <div className="stack__item">

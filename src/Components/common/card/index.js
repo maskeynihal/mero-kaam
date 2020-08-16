@@ -1,3 +1,5 @@
 import Card from './card';
 import LargeCard from './largeCard';
-export { Card, LargeCard };
+import InputCard from './inputCard';
+
+export { Card, LargeCard, InputCard };
