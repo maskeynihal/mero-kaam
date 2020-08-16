@@ -50,6 +50,7 @@ function Home() {
       </div>
       <Modal isShowing={isShowing} hide={() => toggle(null, null)}>
         {modalComponent === 'LargeCard' && <LargeCard elevation={0} {...data}></LargeCard>}
+        {modalComponent === 'InputCard' && <InputCard></InputCard>}
       </Modal>
     </div>
   );

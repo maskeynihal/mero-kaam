@@ -1,3 +1,4 @@
 import useModal from './useModal';
+import useFormInput from './useFormInput';
 
-export { useModal };
+export { useModal, useFormInput };

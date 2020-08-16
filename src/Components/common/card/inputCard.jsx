@@ -3,32 +3,44 @@ import PropTypes from 'prop-types';
 import { Card as NeuCard, Avatar, Button, TextField, TextArea } from 'ui-neumorphism';
 import { AiOutlineSave } from 'react-icons/ai';
 import { NoteCard, NoteInput } from 'Components/common/noteCard';
+import { useFormInput } from 'Hooks';
+
+const INITIAL_STATE = {
+  heading: '',
+  type: '',
+  dueDate: '',
+  description: ''
+};
+
 /**
  * Large Card.
  *
  * @param props
  */
-function InputCard({ rounded, heading, subHeading, type, dueDate, author, typeColor, description, ...props }) {
+function InputCard({ rounded, heading, type, dueDate, author, typeColor, description, ...props }) {
+  const { values, handleChange } = useFormInput({ ...INITIAL_STATE, heading, type, dueDate, description });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <React.Fragment>
-      <form
-        action="
-      "
-      >
+      <form>
         <NeuCard rounded={rounded} {...props} className="input-card">
           <div className="input-card__container">
             <div className="input-card__topbar">
               <TextField
                 rounded={rounded}
-                placeholder={'Enter Heading'}
                 color={'#cfc'}
-                prepend={'Heading'}
                 style={{ margin: 0 }}
                 className="input-card__heading"
-              >
-                {type}
-              </TextField>
-              <Button className="bg-success" rounded onClick={action}>
+                prepend={'Heading'}
+                placeholder={'Enter Heading'}
+                name="heading"
+                value={values.heading}
+                onChange={handleChange}
+              ></TextField>
+              <Button className="bg-success" rounded onClick={handleSubmit}>
                 <div className="button button__with-icon">
                   <div className="icon button__icon button__icon--right">
                     <AiOutlineSave></AiOutlineSave>
@@ -36,34 +48,34 @@ function InputCard({ rounded, heading, subHeading, type, dueDate, author, typeCo
                   <div className="text button__text">Save Task</div>
                 </div>
               </Button>
-              {/* <Button color={'green'}>Save Task</Button> */}
             </div>
             <div className="input-card__content">
               <div className="input-card__row row-group justify-space-between">
                 <TextField
                   rounded={rounded}
-                  placeholder={'Enter Tag'}
+                  placeholder={'Enter Type'}
                   style={{ margin: 0 }}
                   color={'#cfc'}
                   prepend={'Type'}
-                  className="TextField-TextField"
-                >
-                  {type}
-                </TextField>
+                  className="input-card__type"
+                  value={values.type}
+                  name="type"
+                  onChange={handleChange}
+                ></TextField>
                 <TextField
                   rounded={rounded}
                   prepend={'Due Date'}
                   type={'date'}
                   style={{ margin: 0 }}
-                  className="input-card__type"
-                >
-                  {dueDate}
-                </TextField>
+                  className="input-card__due-date"
+                  name="dueDate"
+                  value={values.dueDate}
+                  onChange={handleChange}
+                ></TextField>
                 <div className="input-card__button input-card__author">
                   <Avatar>{author}</Avatar>
                 </div>
               </div>
-
               <div className="row-group input-card__row justify-space-between">
                 <div className="input-card__description">
                   <div className="description">
@@ -73,7 +85,10 @@ function InputCard({ rounded, heading, subHeading, type, dueDate, author, typeCo
                       inputStyles={{ width: '100%' }}
                       className="description__body"
                       placeholder="Add Description"
-                      height="80"
+                      height={80}
+                      value={values.description}
+                      name="description"
+                      onChange={handleChange}
                     ></TextArea>
                   </div>
                 </div>
@@ -101,11 +116,11 @@ InputCard.defaultProps = {
 InputCard.propTypes = {
   rounded: PropTypes.bool,
   heading: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  subHeading: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   type: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   dueDate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   author: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  typeColor: PropTypes.string
+  typeColor: PropTypes.string,
+  description: PropTypes.string
 };
 
 export default InputCard;
