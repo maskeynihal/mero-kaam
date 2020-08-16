@@ -16,7 +16,7 @@ function PageHeading({ heading }) {
       <div className="heading__container">
         <div className="heading__title">{heading}</div>
         <div className="heading__actions">
-          <Button rounded={true} className="bg-secondary" onClick={toggle}>
+          <Button rounded={true} className="bg-secondary" onClick={() => toggle('LargeCard', 1)}>
             <div className="button button__with-icon">
               <div className="icon button__icon button__icon--right">
                 <RiAddLine></RiAddLine>
@@ -24,7 +24,6 @@ function PageHeading({ heading }) {
               <div className="text button__text">Add Task</div>
             </div>
           </Button>
-          <ShowTaskModal isShowing={isShowing} hide={toggle} heading={'nevermind'}></ShowTaskModal>
         </div>
       </div>
     </div>

@@ -8,8 +8,6 @@ import { NoteCard, NoteInput } from 'Components/common/noteCard';
  * @param props
  */
 function LargeCard({ rounded, heading, subHeading, type, dueDate, author, typeColor, description, ...props }) {
-  console.log(props);
-
   return (
     <React.Fragment>
       <NeuCard rounded={rounded} {...props} className="large-card">

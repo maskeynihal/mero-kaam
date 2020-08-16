@@ -2,15 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Card as NeuCard, IconButton } from 'ui-neumorphism';
 
-import { LargeCard } from 'Components/common/card';
 import { AiOutlineClose } from 'react-icons/ai';
 /**
  * Modal to be used to show task.
  */
-function ShowTaskModal({ isShowing, hide, component, ...props }) {
+function Modal({ isShowing, hide, ...props }) {
   if (!isShowing) {
     return null;
   }
+  console.log('props', props);
 
   return ReactDOM.createPortal(
     <div className="modal">
@@ -22,11 +22,7 @@ function ShowTaskModal({ isShowing, hide, component, ...props }) {
               <AiOutlineClose size={36}></AiOutlineClose>
             </IconButton>
           </div>
-          <div className="modal__body">
-            {props.children}
-            {/* <component {...props}></component>
-            <LargeCard elevation={0} {...props}></LargeCard> */}
-          </div>
+          <div className="modal__body">{props.children}</div>
         </NeuCard>
       </div>
     </div>,
@@ -34,4 +30,4 @@ function ShowTaskModal({ isShowing, hide, component, ...props }) {
   );
 }
 
-export default ShowTaskModal;
+export default Modal;

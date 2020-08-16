@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Card as NeuCard, Button, Avatar } from 'ui-neumorphism';
+import { useModal } from 'Hooks';
 
 /**
  * Card.
  */
-function Card({ rounded, heading, dueDate, username }) {
+function Card({ rounded, heading, dueDate, username, action, ...props }) {
   return (
     <React.Fragment>
       <NeuCard rounded={rounded}>
@@ -19,7 +20,7 @@ function Card({ rounded, heading, dueDate, username }) {
           </div>
           <div className="card__footer">
             <div className="card__action">
-              <Button text color="var(--primary)">
+              <Button text color="var(--primary)" onClick={action}>
                 Details
               </Button>
               <Avatar>{username}</Avatar>
