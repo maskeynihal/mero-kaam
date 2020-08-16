@@ -21,6 +21,7 @@ function InputCard({ rounded, heading, type, dueDate, author, typeColor, descrip
   const { values, handleChange } = useFormInput({ ...INITIAL_STATE, heading, type, dueDate, description });
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log('submitted');
   };
 
   return (
