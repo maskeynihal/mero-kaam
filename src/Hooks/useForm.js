@@ -46,7 +46,6 @@ const getPropValues = (initialValue, prop) => {
  * @param {object} initialValue Model you initialValue.
  * @param {object} validation Model your validation.
  * @param {Function} submitFormCallback
- * @param {const} =  SubmitFormCallback const to =  be execute during form submission.
  */
 const useForm = (initialValue = {}, validation = {}, submitFormCallback) => {
   const [state, setStateValue] = useState(initialValue);
@@ -149,10 +148,20 @@ const useForm = (initialValue = {}, validation = {}, submitFormCallback) => {
       // before calling the submit callback const
       if (!validateErrorState()) {
         submitFormCallback(values);
+        // setInitialValues(initialValue);
       }
     },
     [validateErrorState, submitFormCallback, values]
   );
+
+  const setInitialValues = (initialValue = initialValue) => {
+    console.log('hello');
+    console.log(values, getPropValues(initialValue, VALUE));
+    setStateValue(initialValue);
+    setValues(() => getPropValues(state, VALUE));
+    setErrors(getPropValues(state, ERROR));
+    console.log(values, getPropValues(initialValue, VALUE));
+  };
 
   return {
     handleOnChange,
@@ -162,7 +171,8 @@ const useForm = (initialValue = {}, validation = {}, submitFormCallback) => {
     disable,
     setValues,
     setErrors,
-    dirty
+    dirty,
+    setInitialValues
   };
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card as NeuCard, TextField, Button, Alert } from 'ui-neumorphism';
 import { Link } from 'react-router-dom';
 
@@ -7,25 +7,34 @@ import { useFormInput, useAlert, useForm } from 'Hooks';
 import { GoAlert } from 'react-icons/go';
 
 import { registerFormValidation } from 'Validators';
+import register from 'Services/registerApi';
 
 /**
  * Register Card input.
  */
 function RegisterCard() {
-  // const { values, handleOnChange } = useFormInput(INITIAL_STATE);
-  // const { errors, handleError } = useAlert(ERROR_INITIAL_STATE);
+  const { alert, handleAlert } = useAlert({});
   const initialValue = {
-    name: { value: '', error: '' },
-    email: { value: '', error: '' },
-    password: { value: '', error: '' }
+    name: { value: 'Nihal Maskey', error: '' },
+    email: { value: 'maskeynihal@gmail.com', error: '' },
+    password: { value: 'password', error: '' }
   };
 
   const validation = registerFormValidation;
-  const onSubmitForm = (state) => {
-    console.log(state, errors);
+  const onSubmitForm = async (state) => {
+    // user registration
+    const data = await register(state);
+
+    if (data.error) {
+      handleAlert({ ...data.response, type: 'error' });
+    } else {
+      handleAlert({ message: 'Thank you for registering. Please Sign in to make todos', type: 'success' });
+    }
+
+    setInitialValues(initialValue);
   };
 
-  const { values, errors, dirty, handleOnChange, handleOnSubmit, disable } = useForm(
+  const { values, errors, dirty, handleOnChange, handleOnSubmit, disable, setInitialValues } = useForm(
     initialValue,
     validation,
     onSubmitForm
@@ -36,6 +45,13 @@ function RegisterCard() {
       <NeuCard className="register-card">
         <div className="container">
           <div className="register-card__heading"> {'REGISTER'}</div>
+          {alert.message && (
+            <div className="alert">
+              <Alert type={alert.type} icon={<GoAlert />}>
+                {alert.message}
+              </Alert>
+            </div>
+          )}
           <div className="register-card__input">
             <div className="input-row">
               <TextField
@@ -54,6 +70,7 @@ function RegisterCard() {
                 name="email"
                 placeholder="Enter your email"
                 className="input-field"
+                value={values.email}
                 onChange={handleOnChange}
               ></TextField>
               {errors.email && dirty.email && <p className="error">{errors.email}</p>}

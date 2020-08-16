@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
 const useAlert = (initialState = {}) => {
-  const [errors, setErrors] = useState(initialState);
+  const [alert, setAlert] = useState(initialState);
 
-  const handleError = (key, value) => {
-    setErrors({ ...errors, [key]: value, allErrors: [...errors.allErrors, value] });
+  const handleAlert = ({ message, ...props }) => {
+    setAlert({ ...props, message });
   };
 
   return {
-    errors,
-    handleError
+    alert,
+    handleAlert
   };
 };
 
