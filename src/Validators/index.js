@@ -1,3 +1,3 @@
 import registerFormValidation from './registerFormValidation';
-
-export { registerFormValidation };
+import loginFormValidation from './loginFormValidation';
+export { registerFormValidation, loginFormValidation };

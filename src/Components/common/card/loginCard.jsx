@@ -6,8 +6,8 @@ import { useAlert, useForm } from 'Hooks';
 
 import { GoAlert } from 'react-icons/go';
 
-import { registerFormValidation } from 'Validators';
-import register from 'Services/registerApi';
+import { loginFormValidation } from 'Validators';
+import login from 'Services/loginApi';
 
 /**
  * Login Card input.
@@ -20,10 +20,10 @@ function LoginCard() {
     password: { value: 'password', error: '' }
   };
 
-  const validation = registerFormValidation;
+  const validation = loginFormValidation;
   const onSubmitForm = async (state) => {
     // user login
-    const data = await register(state);
+    const data = await login(state);
 
     if (data.error) {
       handleAlert({ ...data.response, type: 'error' });
