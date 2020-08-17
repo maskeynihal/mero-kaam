@@ -8,6 +8,7 @@ import About from 'Views/pages/about';
 import AboutMe from 'Views/pages/AboutMe';
 import Contact from 'Views/pages/contact';
 import RegisterPage from 'Views/pages/register';
+import LoginPage from 'Views/pages/login';
 
 const routes = [
   {
@@ -49,6 +50,7 @@ function Routes(props) {
       {routes.map((route) => makeRoute(route))}
       {props.children}
       <Route path="/register" component={RegisterPage}></Route>
+      <Route path="/login" component={LoginPage}></Route>
     </Switch>
   );
 }

@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Card as NeuCard, TextField, Button, Alert } from 'ui-neumorphism';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { useFormInput, useAlert, useForm } from 'Hooks';
+import { useAlert, useForm } from 'Hooks';
 
 import { GoAlert } from 'react-icons/go';
 
@@ -10,32 +10,24 @@ import { registerFormValidation } from 'Validators';
 import register from 'Services/registerApi';
 
 /**
- * Register Card input.
+ * Login Card input.
  */
-function RegisterCard() {
+function LoginCard() {
   const { alert, handleAlert } = useAlert({});
-  const history = useHistory();
+
   const initialValue = {
-    name: { value: 'Nihal Maskey', error: '' },
     email: { value: 'maskeynihal@gmail.com', error: '' },
     password: { value: 'password', error: '' }
   };
 
   const validation = registerFormValidation;
   const onSubmitForm = async (state) => {
-    // user registration
+    // user login
     const data = await register(state);
 
     if (data.error) {
       handleAlert({ ...data.response, type: 'error' });
-    } else {
-      handleAlert({ message: 'Thank you for registering. Redirecting to Sign in page', type: 'success' });
-      setTimeout(() => {
-        history.push('/');
-      }, 1000);
     }
-
-    setInitialValues(initialValue);
   };
 
   const { values, errors, dirty, handleOnChange, handleOnSubmit, disable, setInitialValues } = useForm(
@@ -48,7 +40,7 @@ function RegisterCard() {
     <form onSubmit={handleOnSubmit}>
       <NeuCard className="register-card">
         <div className="container">
-          <div className="register-card__heading"> {'REGISTER'}</div>
+          <div className="register-card__heading"> {'Login'}</div>
           {alert.message && (
             <div className="alert">
               <Alert type={alert.type} icon={<GoAlert />}>
@@ -57,17 +49,6 @@ function RegisterCard() {
             </div>
           )}
           <div className="register-card__input">
-            <div className="input-row">
-              <TextField
-                prepend="Name"
-                name="name"
-                value={values.name}
-                placeholder="Enter your name"
-                className="input-field"
-                onChange={handleOnChange}
-              ></TextField>
-              {errors.name && dirty.name && <p className="error">{errors.name}</p>}
-            </div>
             <div className="input-row">
               <TextField
                 prepend="Email"
@@ -93,16 +74,16 @@ function RegisterCard() {
             </div>
             <div className="input-row">
               <Button className="register-card__button" htmlType="submit" disabled={disable}>
-                Register
+                Login
               </Button>
             </div>
           </div>
           <div className="register-card__footer">
-            Have account?{' '}
-            <Link to="/login">
+            {"Don'tHave account? "}
+            <Link to="/register">
               <Button className="submit" text color="var(--primary)" rounded>
                 {' '}
-                Sign In
+                Register
               </Button>
             </Link>
           </div>
@@ -112,4 +93,4 @@ function RegisterCard() {
   );
 }
 
-export default RegisterCard;
+export default LoginCard;
