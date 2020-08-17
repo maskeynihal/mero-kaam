@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Card as NeuCard, TextField, Button, Alert } from 'ui-neumorphism';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { useFormInput, useAlert, useForm } from 'Hooks';
 
@@ -14,6 +14,7 @@ import register from 'Services/registerApi';
  */
 function RegisterCard() {
   const { alert, handleAlert } = useAlert({});
+  const history = useHistory();
   const initialValue = {
     name: { value: 'Nihal Maskey', error: '' },
     email: { value: 'maskeynihal@gmail.com', error: '' },
@@ -28,7 +29,10 @@ function RegisterCard() {
     if (data.error) {
       handleAlert({ ...data.response, type: 'error' });
     } else {
-      handleAlert({ message: 'Thank you for registering. Please Sign in to make todos', type: 'success' });
+      handleAlert({ message: 'Thank you for registering. Redirecting to Sign in page', type: 'success' });
+      setTimeout(() => {
+        history.push('/');
+      }, 1000);
     }
 
     setInitialValues(initialValue);

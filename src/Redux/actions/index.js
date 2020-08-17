@@ -1,3 +1,3 @@
 import * as modalActions from './modalAction';
-
-export { modalActions };
+import * as redirectActions from './redirectAction';
+export { modalActions, redirectActions };
