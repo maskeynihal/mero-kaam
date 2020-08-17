@@ -15,13 +15,12 @@ const INITIAL_STATE = {
 /**
  * Large Card.
  *
- * @param props
+ * @param {Object}props
  */
 function InputCard({ rounded, heading, type, dueDate, author, typeColor, description, ...props }) {
   const { values, handleChange } = useFormInput({ ...INITIAL_STATE, heading, type, dueDate, description });
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('submitted');
   };
 
   return (

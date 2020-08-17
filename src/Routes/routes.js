@@ -9,12 +9,13 @@ import AboutMe from 'Views/pages/AboutMe';
 import Contact from 'Views/pages/contact';
 import RegisterPage from 'Views/pages/register';
 import LoginPage from 'Views/pages/login';
+import AuthRoute from 'Components/hoc/authRoute';
 
 const routes = [
-  {
-    path: '',
-    component: Home
-  },
+  // {
+  //   path: '',
+  //   component: Home
+  // },
   {
     path: 'about',
     component: About,
@@ -47,10 +48,11 @@ const routes = [
 function Routes(props) {
   return (
     <Switch>
-      {routes.map((route) => makeRoute(route))}
-      {props.children}
-      <Route path="/register" component={RegisterPage}></Route>
-      <Route path="/login" component={LoginPage}></Route>
+      {/* {routes.map((route) => makeRoute(route))} */}
+      {/* {props.children} */}
+      <AuthRoute type="guest" path="/login" component={LoginPage} exact></AuthRoute>
+      <AuthRoute type="authenticated" path="/" component={Home} exact></AuthRoute>
+      <AuthRoute type="guest" path="/register" component={RegisterPage} exact></AuthRoute>
     </Switch>
   );
 }

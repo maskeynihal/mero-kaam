@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card as NeuCard, TextField, Button, Alert } from 'ui-neumorphism';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { useAlert, useForm } from 'Hooks';
 
@@ -8,33 +8,48 @@ import { GoAlert } from 'react-icons/go';
 
 import { loginFormValidation } from 'Validators';
 import login from 'Services/loginApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { apiActions, authActions } from 'Redux/actions';
+
+const INITIAL_VALUE = {
+  email: { value: 'maskeynihal@gmail.com', error: '' },
+  password: { value: 'password', error: '' }
+};
 
 /**
  * Login Card input.
+ *
+ * @param {Object} initialValue
+ * @param validation
  */
-function LoginCard() {
+function LoginCard(initialValue = INITIAL_VALUE, validation = loginFormValidation) {
+  const { isAuthenticated } = useSelector((state) => state.apiReducer);
+
   const { alert, handleAlert } = useAlert({});
+  const dispatch = useDispatch();
 
-  const initialValue = {
-    email: { value: 'maskeynihal@gmail.com', error: '' },
-    password: { value: 'password', error: '' }
+  const login = (state) => {
+    const a = dispatch(authActions.login(state));
+
+    console.log('input dispatch call', a);
   };
-
-  const validation = loginFormValidation;
-  const onSubmitForm = async (state) => {
+  const onSubmitForm = (state) => {
     // user login
-    const data = await login(state);
+    const data = login(state);
 
-    if (data.error) {
-      handleAlert({ ...data.response, type: 'error' });
-    }
+    // if (data.error) {
+    //   handleAlert({ ...data.response, type: 'error' });
+    // }
   };
-
   const { values, errors, dirty, handleOnChange, handleOnSubmit, disable, setInitialValues } = useForm(
     initialValue,
     validation,
     onSubmitForm
   );
+
+  if (isAuthenticated) {
+    return <Redirect to="/"></Redirect>;
+  }
 
   return (
     <form onSubmit={handleOnSubmit}>
@@ -73,7 +88,7 @@ function LoginCard() {
               {errors.password && dirty.password && <p className="error">{errors.password}</p>}
             </div>
             <div className="input-row">
-              <Button className="register-card__button" htmlType="submit" disabled={disable}>
+              <Button className="register-card__button" htmlType="submit">
                 Login
               </Button>
             </div>

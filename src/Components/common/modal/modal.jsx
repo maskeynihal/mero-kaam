@@ -10,7 +10,6 @@ function Modal({ isShowing, hide, ...props }) {
   if (!isShowing) {
     return null;
   }
-  console.log('props', props);
 
   return ReactDOM.createPortal(
     <div className="modal">
