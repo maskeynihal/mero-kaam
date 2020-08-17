@@ -6,7 +6,7 @@ const http = axios.create({
   baseURL: config.baseUrl,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: ''
+    Authorization: window.localStorage.getItem('karyaAuthToken')
   }
 });
 

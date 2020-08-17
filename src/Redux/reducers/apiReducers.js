@@ -11,7 +11,9 @@ export default (
 ) => {
   switch (action.type) {
     case apiActions.API_SUCCESS:
-      localStorage.setItem('karyaAuthToken', action.payload.token);
+      if (action.payload.token) {
+        localStorage.setItem('karyaAuthToken', action.payload.token);
+      }
 
       return { ...state, isAuthenticated: true, authToken: action.payload.token };
 

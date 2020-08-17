@@ -47,6 +47,7 @@ function LoginCard(initialValue = INITIAL_VALUE, validation = loginFormValidatio
     onSubmitForm
   );
 
+  // redirect after authentication, refactor required
   if (isAuthenticated) {
     return <Redirect to="/"></Redirect>;
   }

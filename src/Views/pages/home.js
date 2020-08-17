@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { GoAlert } from 'react-icons/go';
+import { Alert } from 'ui-neumorphism';
 
 import PageHeading from 'Components/container/page-heading';
 import CardStack from 'Components/container/card-stack';
@@ -19,13 +21,19 @@ function Home() {
 
   return (
     <div>
-      <div>{isShowing ? 'showing' : 'not showing'}</div>
       <PageHeading heading="Todo List"></PageHeading>
       <div className="main-content">
         <div className="main-content__container">
-          <div className="large__card">
+          {alert.message && (
+            <div className="alert">
+              <Alert type={alert.type} icon={<GoAlert />}>
+                {alert.message}
+              </Alert>
+            </div>
+          )}
+          {/* <div className="large__card">
             <InputCard></InputCard>
-          </div>
+          </div> */}
           <div className="stack__group">
             <div className="stack__item">
               <CardStack></CardStack>

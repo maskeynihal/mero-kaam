@@ -11,7 +11,7 @@ const useModal = () => {
   const dispatch = useDispatch();
   const isShowing = useSelector((state) => state.modal.isShowing);
 
-  const toggle = (modalComponent, id) => {
+  const toggle = (modalComponent = null, id = null) => {
     dispatch(modalActions.toggleModal(isShowing, modalComponent, id));
   };
 

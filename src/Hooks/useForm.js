@@ -34,7 +34,7 @@ const isRequired = (value, isRequired) => {
  */
 const getPropValues = (initialValue, prop) => {
   return Object.keys(initialValue).reduce((accumulator, curr) => {
-    accumulator[curr] = !prop ? false : initialValue[curr][prop];
+    accumulator[curr] = !prop ? false : initialValue[curr][prop] || null;
 
     return accumulator;
   }, {});
@@ -51,7 +51,9 @@ const useForm = (initialValue = {}, validation = {}, submitFormCallback) => {
   const [state, setStateValue] = useState(initialValue);
 
   const [values, setValues] = useState(getPropValues(state, VALUE));
+
   const [errors, setErrors] = useState(getPropValues(state, ERROR));
+
   const [dirty, setDirty] = useState(getPropValues(state));
 
   const [disable, setDisable] = useState(true);

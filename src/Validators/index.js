@@ -1,3 +1,5 @@
 import registerFormValidation from './registerFormValidation';
 import loginFormValidation from './loginFormValidation';
-export { registerFormValidation, loginFormValidation };
+import addTaskValidation from './addTaskValidation';
+
+export { registerFormValidation, loginFormValidation, addTaskValidation };

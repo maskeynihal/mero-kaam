@@ -1,12 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card as NeuCard, Avatar, Button, TextField, TextArea } from 'ui-neumorphism';
+import { Card as NeuCard, Avatar, Button, TextField, TextArea, Alert } from 'ui-neumorphism';
 import { AiOutlineSave } from 'react-icons/ai';
 import { NoteCard, NoteInput } from 'Components/common/noteCard';
-import { useFormInput } from 'Hooks';
+import { useFormInput, useForm, useModal, useAlert } from 'Hooks';
+import { addTaskValidation } from 'Validators';
+import { useDispatch } from 'react-redux';
+import { todosActions, modalActions } from 'Redux/actions';
+import { ADD_TODO_URL } from 'Constants/api';
+import callApi from 'Services/callApi';
+import { GoAlert } from 'react-icons/go';
 
 const INITIAL_STATE = {
-  heading: '',
+  title: '',
   type: '',
   dueDate: '',
   description: ''
@@ -17,16 +23,52 @@ const INITIAL_STATE = {
  *
  * @param {Object}props
  */
-function InputCard({ rounded, heading, type, dueDate, author, typeColor, description, ...props }) {
-  const { values, handleChange } = useFormInput({ ...INITIAL_STATE, heading, type, dueDate, description });
+function InputCard({ rounded, title, type, dueDate, author, typeColor, description, ...props }) {
+  const validation = addTaskValidation;
+  const dispatch = useDispatch();
+  const { isShowing, toggle } = useModal();
+  const { alert, handleAlert } = useAlert({});
+  const initialValue = { ...INITIAL_STATE, title, type, dueDate, description };
+
+  const onSubmitForm = async (state) => {
+    const data = state;
+
+    try {
+      const responseData = await callApi(ADD_TODO_URL, state);
+
+      const responseType = responseData.error ? 'error' : 'success';
+
+      handleAlert({ ...responseData.response, type: responseType });
+
+      dispatch(todosActions.addTodo(data));
+      toggle();
+    } catch (error) {
+      handleAlert({ message: 'Something went wrong', type: 'error' });
+      console.log(error);
+    }
+  };
+
+  const { values, errors, dirty, handleOnChange, handleOnSubmit, disable, setInitialValues } = useForm(
+    initialValue,
+    validation,
+    onSubmitForm
+  );
+
   const handleSubmit = (event) => {
     event.preventDefault();
   };
 
   return (
     <React.Fragment>
-      <form>
-        <NeuCard rounded={rounded} {...props} className="input-card">
+      {alert.message && (
+        <div className="alert">
+          <Alert type={alert.type} icon={<GoAlert />}>
+            {alert.message}
+          </Alert>
+        </div>
+      )}
+      <form onSubmit={handleOnSubmit}>
+        <NeuCard elevation={0} rounded={rounded} {...props} className="input-card">
           <div className="input-card__container">
             <div className="input-card__topbar">
               <TextField
@@ -34,13 +76,14 @@ function InputCard({ rounded, heading, type, dueDate, author, typeColor, descrip
                 color={'#cfc'}
                 style={{ margin: 0 }}
                 className="input-card__heading"
-                prepend={'Heading'}
-                placeholder={'Enter Heading'}
-                name="heading"
-                value={values.heading}
-                onChange={handleChange}
+                prepend={'Title'}
+                placeholder={'Enter title'}
+                name="title"
+                value={values.title}
+                onChange={handleOnChange}
               ></TextField>
-              <Button className="bg-success" rounded onClick={handleSubmit}>
+              {errors.title && dirty.title && <p className="error">{errors.title}</p>}
+              <Button className="bg-success" rounded htmlType="submit" disabled={disable}>
                 <div className="button button__with-icon">
                   <div className="icon button__icon button__icon--right">
                     <AiOutlineSave></AiOutlineSave>
@@ -60,7 +103,7 @@ function InputCard({ rounded, heading, type, dueDate, author, typeColor, descrip
                   className="input-card__type"
                   value={values.type}
                   name="type"
-                  onChange={handleChange}
+                  onChange={handleOnChange}
                 ></TextField>
                 <TextField
                   rounded={rounded}
@@ -70,7 +113,7 @@ function InputCard({ rounded, heading, type, dueDate, author, typeColor, descrip
                   className="input-card__due-date"
                   name="dueDate"
                   value={values.dueDate}
-                  onChange={handleChange}
+                  onChange={handleOnChange}
                 ></TextField>
                 <div className="input-card__button input-card__author">
                   <Avatar>{author}</Avatar>
@@ -88,7 +131,7 @@ function InputCard({ rounded, heading, type, dueDate, author, typeColor, descrip
                       height={80}
                       value={values.description}
                       name="description"
-                      onChange={handleChange}
+                      onChange={handleOnChange}
                     ></TextArea>
                   </div>
                 </div>
@@ -103,7 +146,7 @@ function InputCard({ rounded, heading, type, dueDate, author, typeColor, descrip
 
 InputCard.defaultProps = {
   rounded: true,
-  heading: 'Save Task',
+  title: 'Save Task',
   subHeading: 'Grind on 2 days',
   type: 'TODO',
   dueDate: Date.now().toString(),
@@ -115,7 +158,7 @@ InputCard.defaultProps = {
 
 InputCard.propTypes = {
   rounded: PropTypes.bool,
-  heading: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   type: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   dueDate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   author: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
