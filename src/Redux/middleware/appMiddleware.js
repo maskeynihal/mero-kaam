@@ -3,7 +3,6 @@ import { apiRequest } from 'Redux/actions/apiActions';
 import { LOGIN_URL } from 'Constants/api';
 
 export default () => (next) => (action) => {
-  console.log('action', action);
   next(action);
   if (!action) {
     return;

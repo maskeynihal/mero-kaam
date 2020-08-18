@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card as NeuCard, Avatar, Button } from 'ui-neumorphism';
 import { NoteCard, NoteInput } from 'Components/common/noteCard';
+import { useState } from 'react';
 /**
  * Large Card.
  *
  * @param props
  */
 function LargeCard({ rounded, title, subHeading, type, dueDate, author, typeColor, description, ...props }) {
+  const [todoStatus, handleChangeType] = useState(type);
+
   return (
     <React.Fragment>
       <NeuCard rounded={rounded} {...props} className="large-card">
@@ -16,8 +19,16 @@ function LargeCard({ rounded, title, subHeading, type, dueDate, author, typeColo
           <div className="large-card__content">
             {/* <div className="large-card__sub-heading">{subHeading}</div> */}
             <div className="large-card__row row-group justify-space-between">
-              <Button rounded={rounded} bgColor={typeColor} color={'#cfc'} className="large-card__button">
-                {type}
+              <Button
+                rounded={rounded}
+                bgColor={typeColor}
+                color={'#cfc'}
+                className="large-card__button"
+                onClick={() => {
+                  handleChangeType(todoStatus === 'INCOMPLETE' ? 'COMPLETED' : 'INCOMPLETE');
+                }}
+              >
+                {todoStatus}
               </Button>
               <Button rounded={rounded} className="large-card__type">
                 {dueDate}
@@ -61,8 +72,8 @@ LargeCard.defaultProps = {
   rounded: true,
   title: 'Lets Complete Todos in 2 days',
   subHeading: 'Grind on 2 days',
-  type: 'TODO',
-  dueDate: Date.now().toString(),
+  type: 'INCOMPLETE',
+  dueDate: new Date().toLocaleString(),
   author: 'NM',
   typeColor: 'var(--primary)',
   description:

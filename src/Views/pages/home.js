@@ -53,6 +53,7 @@ function Home() {
 
     toggle('LargeCard', 100);
     setSingleData(singleData[0]);
+    console.log(singleData);
   };
 
   return (
