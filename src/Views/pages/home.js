@@ -11,6 +11,8 @@ import { todosActions } from 'Redux/actions';
 import { Modal } from 'Components/common/modal';
 import callApi from 'Services/callApi';
 import { GET_TODOS_URL } from 'Constants/api';
+import { getTodo } from 'Redux/actions/todosActions';
+import { useState } from 'react';
 
 /**
  * Main Page.
@@ -20,7 +22,7 @@ function Home() {
   const modalComponent = useSelector((state) => state.modal.modalComponent);
   const todos = useSelector((state) => state.todos.todos);
   const id = useSelector((state) => state.modal.id);
-  const data = getData(id);
+  const [singleData, setSingleData] = useState({});
   const { alert, handleAlert } = useAlert({});
   const dispatch = useDispatch();
 
@@ -46,6 +48,13 @@ function Home() {
     return todos;
   };
 
+  const handleCardDetails = (id) => {
+    const singleData = getTodos() && getTodos().filter((todo) => id === todo.id);
+
+    toggle('LargeCard', 100);
+    setSingleData(singleData[0]);
+  };
+
   return (
     <div>
       <PageHeading heading="Todo List"></PageHeading>
@@ -60,24 +69,17 @@ function Home() {
           )}
           <div className="stack__group">
             <div className="stack__item">
-              <CardStack data={getTodos()}></CardStack>
+              <CardStack data={getTodos()} action={handleCardDetails}></CardStack>
             </div>
           </div>
         </div>
       </div>
       <Modal isShowing={isShowing} hide={() => toggle(null, null)}>
-        {modalComponent === 'LargeCard' && <LargeCard elevation={0} {...data}></LargeCard>}
+        {modalComponent === 'LargeCard' && <LargeCard elevation={0} {...singleData}></LargeCard>}
         {modalComponent === 'InputCard' && <InputCard></InputCard>}
       </Modal>
     </div>
   );
 }
-
-const getData = (id) => {
-  return {
-    heading: Math.random(),
-    author: id
-  };
-};
 
 export default Home;

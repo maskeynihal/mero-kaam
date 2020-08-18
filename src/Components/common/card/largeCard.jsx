@@ -7,12 +7,12 @@ import { NoteCard, NoteInput } from 'Components/common/noteCard';
  *
  * @param props
  */
-function LargeCard({ rounded, heading, subHeading, type, dueDate, author, typeColor, description, ...props }) {
+function LargeCard({ rounded, title, subHeading, type, dueDate, author, typeColor, description, ...props }) {
   return (
     <React.Fragment>
       <NeuCard rounded={rounded} {...props} className="large-card">
         <div className="large-card__container">
-          <div className="large-card__heading">{heading}</div>
+          <div className="large-card__heading">{title}</div>
           <div className="large-card__content">
             {/* <div className="large-card__sub-heading">{subHeading}</div> */}
             <div className="large-card__row row-group justify-space-between">
@@ -59,7 +59,7 @@ function LargeCard({ rounded, heading, subHeading, type, dueDate, author, typeCo
 
 LargeCard.defaultProps = {
   rounded: true,
-  heading: 'Lets Complete Todos in 2 days',
+  title: 'Lets Complete Todos in 2 days',
   subHeading: 'Grind on 2 days',
   type: 'TODO',
   dueDate: Date.now().toString(),
@@ -71,7 +71,7 @@ LargeCard.defaultProps = {
 
 LargeCard.propTypes = {
   rounded: PropTypes.bool,
-  heading: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   subHeading: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   type: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   dueDate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

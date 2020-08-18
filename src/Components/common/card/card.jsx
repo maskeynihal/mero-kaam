@@ -41,9 +41,10 @@ Card.defaultProps = {
 
 Card.propTypes = {
   rounded: PropTypes.bool,
-  heading: PropTypes.string,
+  title: PropTypes.string,
   dueDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  username: PropTypes.string
+  username: PropTypes.string,
+  action: PropTypes.func
 };
 
 export default Card;

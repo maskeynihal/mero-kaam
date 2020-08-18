@@ -9,7 +9,7 @@ import { useModal } from 'Hooks';
  * @param {Object} props
  */
 function CardStack(props) {
-  const { isShowing, toggle } = useModal();
+  // const { isShowing, toggle } = useModal();
   const { data } = props;
 
   return (
@@ -23,10 +23,11 @@ function CardStack(props) {
       <div className="card-group">
         {data &&
           data.map((todo) => (
-            <div className="card-group__item" key={todo.id}>
+            <div className="card-group__item" key={todo.id || Math.random()}>
               <Card
                 rounded={true}
-                action={() => toggle('LargeCard', 100)}
+                // action={() => toggle('LargeCard', 100)}
+                action={() => props.action(todo.id)}
                 title={todo.title}
                 dueDate={todo.dueDate}
               ></Card>
@@ -46,6 +47,7 @@ CardStack.defaultProps = {
 
 CardStack.propTypes = {
   data: PropTypes.array,
-  title: PropTypes.string
+  title: PropTypes.string,
+  action: PropTypes.func
 };
 export default CardStack;
