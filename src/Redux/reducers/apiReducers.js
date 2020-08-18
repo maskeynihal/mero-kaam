@@ -5,7 +5,8 @@ export default (
     isAuthenticated: !!localStorage.getItem('karyaAuthToken'),
     authToken: localStorage.getItem('karyaAuthToken') || '',
     isLoading: false,
-    hasError: false
+    hasError: false,
+    errors: {}
   },
   action
 ) => {
@@ -15,10 +16,10 @@ export default (
         localStorage.setItem('karyaAuthToken', action.payload.token);
       }
 
-      return { ...state, isAuthenticated: true, authToken: action.payload.token };
+      return { ...state, isAuthenticated: true, hasError: false, errors: {}, authToken: action.payload.token };
 
     case apiActions.API_ERROR:
-      return { ...state, error: action.payload };
+      return { ...state, hasError: true, errors: action.payload };
 
     case authActions.LOGOUT:
       localStorage.setItem('karyaAuthToken', '');

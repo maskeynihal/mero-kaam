@@ -10,6 +10,7 @@ import { loginFormValidation } from 'Validators';
 import login from 'Services/loginApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiActions, authActions } from 'Redux/actions';
+import { useEffect } from 'react';
 
 const INITIAL_VALUE = {
   email: { value: 'maskeynihal@gmail.com', error: '' },
@@ -23,24 +24,30 @@ const INITIAL_VALUE = {
  * @param validation
  */
 function LoginCard(initialValue = INITIAL_VALUE, validation = loginFormValidation) {
-  const { isAuthenticated } = useSelector((state) => state.apiReducer);
+  const { isAuthenticated, hasError, errors: apiErrors } = useSelector((state) => state.apiReducer);
 
   const { alert, handleAlert } = useAlert({});
   const dispatch = useDispatch();
 
   const login = (state) => {
-    const a = dispatch(authActions.login(state));
-
-    console.log('input dispatch call', a);
+    dispatch(authActions.login(state));
   };
   const onSubmitForm = (state) => {
     // user login
     const data = login(state);
 
+    console.log(hasError);
     // if (data.error) {
     //   handleAlert({ ...data.response, type: 'error' });
     // }
   };
+
+  useEffect(() => {
+    console.log('Hello', alert);
+    if (apiErrors.message) {
+      handleAlert({ ...apiErrors, type: 'error' });
+    }
+  }, ['hasError']);
   const { values, errors, dirty, handleOnChange, handleOnSubmit, disable, setInitialValues } = useForm(
     initialValue,
     validation,

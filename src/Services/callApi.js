@@ -1,8 +1,13 @@
 import http from 'Utils/http';
 
-export default async (url, params) => {
+export default async ({ url, method }, params) => {
+  console.log(url);
   try {
-    const { data } = await http.post(url, params);
+    const { data } = await http({
+      url: url,
+      method: method,
+      data: params
+    });
 
     return {
       response: data,

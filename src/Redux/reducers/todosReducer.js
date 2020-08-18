@@ -16,6 +16,9 @@ export default (state = INITIAL_STATE, action) => {
     case todosActions.ADD_TODO:
       return { ...state, todos: [...state.todos, payload] };
 
+    case todosActions.GET_TODO:
+      return { ...state, todos: payload };
+
     default:
       return state;
   }

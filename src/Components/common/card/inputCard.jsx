@@ -44,7 +44,6 @@ function InputCard({ rounded, title, type, dueDate, author, typeColor, descripti
       toggle();
     } catch (error) {
       handleAlert({ message: 'Something went wrong', type: 'error' });
-      console.log(error);
     }
   };
 

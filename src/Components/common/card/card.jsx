@@ -7,12 +7,12 @@ import { useModal } from 'Hooks';
 /**
  * Card.
  */
-function Card({ rounded, heading, dueDate, username, action, ...props }) {
+function Card({ rounded, title, dueDate, username, action, ...props }) {
   return (
     <React.Fragment>
       <NeuCard rounded={rounded}>
         <div className="card__container">
-          <div className="card__heading">{heading}</div>
+          <div className="card__heading">{title}</div>
           <div className="card__due-date">
             <NeuCard inset className="card__date">
               {dueDate}
@@ -34,8 +34,8 @@ function Card({ rounded, heading, dueDate, username, action, ...props }) {
 
 Card.defaultProps = {
   rounded: false,
-  heading: 'Complete React TODO',
-  dueDate: Date.now(),
+  title: 'Complete React TODO',
+  dueDate: new Date().toLocaleDateString(),
   username: 'NM'
 };
 
